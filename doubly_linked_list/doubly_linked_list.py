@@ -1,5 +1,14 @@
-"""Each ListNode holds a reference to its previous node
-as well as its next node in the List."""
+# dll = DoublyLinkedList()
+# dll.add_to_tail(1)
+# dll.add_to_tail(2)
+# dll.add_to_tail(3)
+# dll.add_to_tail(4)
+# dll.add_to_tail(5)
+
+# middle = dll.find_middle()
+# print(middle.value)
+# """Each ListNode holds a reference to its previous node
+# as well as its next node in the List."""
 
 
 class ListNode:
@@ -57,11 +66,6 @@ class DoublyLinkedList:
             node = ListNode(value)
             self.head = node
             self.tail = node
-        # Add to DLL with 1 element
-        elif self.head == self.tail:
-            current_head = self.head
-            node = ListNode(value, None, current_head)
-            self.head = node
         #General
         else:
             current_head = self.head
@@ -103,9 +107,28 @@ class DoublyLinkedList:
     current tail's previous node the new tail of the List.
     Returns the value of the removed Node."""
     def remove_from_tail(self):
-        value = self.tail.value
-        self.delete(self.tail)
-        return value
+        if not self.tail:
+            return None
+        else:
+            print(f"Length of DDL: {len(self)}")
+            print(f"Tail value: {self.tail.value}")
+            value = self.tail.value
+            self.delete(self.tail)
+            return value
+        # if self.head is None:
+        #     return None
+        # elif self.tail is self.head:
+        #     old_value = self.tail.value
+        #     self.tail.delete()
+        #     # self.tail, self.head = None, None
+        # else:
+        #     print(f"Length of DDL: {len(self)}")
+        #     print(f"Tail value: {self.tail.value}")
+        #     old_value = self.tail.value
+        #     # old_tail = self.tail
+        #     # self.tail = old_tail.prev
+        #     self.tail.delete()
+        # return old_value
 
     """Removes the input node from its current spot in the
     List and inserts it as the new head node of the List."""
@@ -143,8 +166,8 @@ class DoublyLinkedList:
             node.delete()
         # If tail
         elif node is self.tail:
-            self.tail = self.tail.prev
-            node.delete()
+            self.tail = node.prev
+            self.tail.next = None
         # else
         else:
             node.delete()
